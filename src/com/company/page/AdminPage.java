@@ -16,6 +16,11 @@ public class AdminPage implements Page{
     public AdminPage() {}
 
     @Override
+    public String getOptionName() {
+        return "관리자 권한";
+    }
+
+    @Override
     public void logic() {
         System.out.println("[ 관리자 권한 콘솔 ]");
         System.out.println("작업을 선택해주세요");
@@ -29,7 +34,7 @@ public class AdminPage implements Page{
             switch (Integer.parseInt(sc.next())) {
                 case 1:
                     memoryRespository.findAll();
-                    this.back(instance);
+                    this.back();
                     break;
                 case 2:
                     try {
@@ -39,7 +44,7 @@ public class AdminPage implements Page{
                     } catch (Exception e) {
                         System.out.println("잘못된 입력입니다");
                     }
-                    this.back(instance);
+                    this.back();
                     break;
 
                 case 3:
@@ -54,20 +59,20 @@ public class AdminPage implements Page{
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back(instance);
+            this.back();
         }
 
     }
 
     @Override
-    public void back(Page page) {
-        page.logic();
+    public void back() {
+        this.logic();
     }
 
     @Override
     public void reset() {
-        Page beginPage = BeginPage.getInstance();
-        beginPage.logic();
+//        Page beginPage = BeginPage.getInstance();
+//        beginPage.logic();
     }
 
     @Override

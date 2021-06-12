@@ -38,7 +38,7 @@ public class CreateReservationMoviePage implements Page{
         } catch (Exception e) {
             System.out.println("error");
         }
-        this.back(prePage);
+        this.back();
 
     }
 
@@ -53,10 +53,9 @@ public class CreateReservationMoviePage implements Page{
     }
 
     @Override
-    public void back(Page page) {
-        page.logic();
+    public void back() {
+        this.logic();
     }
-
     @Override
     public void reset() {
 
@@ -65,5 +64,10 @@ public class CreateReservationMoviePage implements Page{
     @Override
     public void exit() {
 
+    }
+
+    @Override
+    public String getOptionName() {
+        return null;
     }
 }

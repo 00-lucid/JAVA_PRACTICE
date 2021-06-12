@@ -23,11 +23,11 @@ public class GetReservationByNamePage implements Page {
             ArrayList<Reservation> reservationArrayList = reservationRespository.findByName(this.reservationName);
             if (reservationArrayList.size() == 0) {
                 System.out.println("해당 사용자 이름으로 등록한 예약이 없습니다");
-                this.back(prePage);
+                this.back();
             }
             System.out.println("삭제할 예약 인덱스를 입력하세요");
             System.out.println(reservationRespository.remove(reservationArrayList.get(sc.nextInt())));
-            this.back(prePage);
+            this.back();
         } catch (Exception e) {
             System.out.println("error");
         }
@@ -44,10 +44,9 @@ public class GetReservationByNamePage implements Page {
     }
 
     @Override
-    public void back(Page page) {
-        page.logic();
+    public void back() {
+        this.logic();
     }
-
     @Override
     public void reset() {
 
@@ -56,5 +55,10 @@ public class GetReservationByNamePage implements Page {
     @Override
     public void exit() {
 
+    }
+
+    @Override
+    public String getOptionName() {
+        return null;
     }
 }

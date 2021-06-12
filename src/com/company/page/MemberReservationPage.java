@@ -1,11 +1,8 @@
 package com.company.page;
 
 import com.company.respository.MovieRespository;
-import com.company.reservation.Reservation;
-import com.company.respository.MemoryRespository;
 import com.company.respository.ReservationRespository;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MemberReservationPage implements Page{
@@ -41,7 +38,7 @@ public class MemberReservationPage implements Page{
                     } catch (Exception e) {
                         System.out.println("존재하지 않는 영화이름 또는 좌석입니다");
                     }
-                    this.back(instance);
+                    this.back();
                     break;
                 case 2:
                     try {
@@ -51,22 +48,22 @@ public class MemberReservationPage implements Page{
                     } catch (Exception e) {
                         System.out.println("존재하지 않는 예약입니다");
                     }
-                    this.back(instance);
+                    this.back();
                     break;
                 case 3:
-                    Page memberPage = MemberPage.getInstance();
-                    this.back(memberPage);
+//                    Page memberPage = MemberPage.getInstance();
+//                    this.back(memberPage);
                     break;
                 case 4:
                     Page begin = BeginPage.getInstance();
-                    this.back(begin);
+                    this.back();
                     break;
                 case 5:
                     System.out.println("예약을 등록한 사용자 이름을 입력하세요");
                     if (reservationRespository.findByName(sc.next()).size() == 0) {
                         System.out.println("해당 사용자 이름으로 등록된 예약이 없습니다");
                     }
-                    this.back(instance);
+                    this.back();
                     break;
                 default:
                     this.exit();
@@ -74,15 +71,14 @@ public class MemberReservationPage implements Page{
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back(instance);
+            this.back();
         }
     }
 
     @Override
-    public void back(Page page) {
-        page.logic();
+    public void back() {
+        this.logic();
     }
-
     @Override
     public void reset() {
         Page beginPage = BeginPage.getInstance();
@@ -92,5 +88,10 @@ public class MemberReservationPage implements Page{
     @Override
     public void exit() {
         System.exit(0);
+    }
+
+    @Override
+    public String getOptionName() {
+        return "영화 예약";
     }
 }

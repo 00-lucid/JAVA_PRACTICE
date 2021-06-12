@@ -21,7 +21,7 @@ public class ConfigMemberPage implements Page{
             // stateless 하게 바꿀 수 없을까..
             if (target == null) {
                 System.out.println("존재하지 않는 이름입니다");
-                this.back(prePage);
+                this.back();
             } else {
                 System.out.println("수정할 데이터를 선택하세요");
                 System.out.println("1.이름 2.나이 3.취소");
@@ -29,7 +29,7 @@ public class ConfigMemberPage implements Page{
                     case 1:
                         System.out.println("바꿀 이름을 입력해주세요");
                         target.setName(sc.next());
-                        this.back(prePage);
+                        this.back();
                         break;
                     case 2:
                         try {
@@ -38,10 +38,10 @@ public class ConfigMemberPage implements Page{
                         } catch (Exception e) {
                             System.out.println("잘못된 나이입니다");
                         }
-                        this.back(prePage);
+                        this.back();
                         break;
                     case 3:
-                        this.back(prePage);
+                        this.back();
                         break;
                     default:
                         this.exit();
@@ -50,7 +50,7 @@ public class ConfigMemberPage implements Page{
         } catch (Exception e) {
             System.out.println("error");
         }
-        this.back(prePage);
+        this.back();
     }
 
     @Override
@@ -64,8 +64,8 @@ public class ConfigMemberPage implements Page{
     }
 
     @Override
-    public void back(Page page) {
-        page.logic();
+    public void back() {
+        this.logic();
     }
 
     @Override
@@ -76,5 +76,10 @@ public class ConfigMemberPage implements Page{
     @Override
     public void exit() {
 
+    }
+
+    @Override
+    public String getOptionName() {
+        return null;
     }
 }

@@ -13,8 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-
-        Page beginPage = BeginPage.getInstance();
+        AppConfig appConfig = new AppConfig();
+        BeginPage beginPage = appConfig.beginPage();
         MemoryRespository memoryRespository = MemoryRespository.getInstance();
         memoryRespository.save(new Member("test1", 999, "test@test.com"));
         memoryRespository.save(new Member("test2", 999, "test@test.com"));

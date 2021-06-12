@@ -31,10 +31,10 @@ public class AdminReservationPage implements Page{
             switch (Integer.parseInt(sc.next())) {
                 case 1:
                     reservationRespository.findAll();
-                    this.back(instance);
+                    this.back();
                     break;
                 case 2:
-                    this.back(instance);
+                    this.back();
                     break;
                 case 3:
                     this.reset();
@@ -44,15 +44,14 @@ public class AdminReservationPage implements Page{
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back(instance);
+            this.back();
         }
     }
 
     @Override
-    public void back(Page page) {
-        page.logic();
+    public void back() {
+        this.logic();
     }
-
     @Override
     public void reset() {
         Page beginPage = BeginPage.getInstance();
@@ -62,5 +61,10 @@ public class AdminReservationPage implements Page{
     @Override
     public void exit() {
         System.exit(0);
+    }
+
+    @Override
+    public String getOptionName() {
+        return null;
     }
 }

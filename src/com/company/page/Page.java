@@ -10,11 +10,14 @@ public interface Page {
     void next();
 
     // 이전 페이지로 이동하는 함수
-    void back(Page page);
+    void back();
 
     // 처음 페이지로 이동하는 함수
     void reset();
 
     // 프로그램 종료 함수
     void exit();
+
+    //
+    String getOptionName();
 }
