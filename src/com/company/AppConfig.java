@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class AppConfig {
     Scanner sc = new Scanner(System.in);
-
+    // 잔디 테스트
     public PageHistoryRespository pageHistoryRespository = new PageHistoryRespository();
     public MemoryRespository memoryRespository = new MemoryRespository();
     public MovieRespository movieRespository = new MovieRespository();
