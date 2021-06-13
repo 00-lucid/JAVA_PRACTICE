@@ -2,28 +2,35 @@ package com.company;
 
 import com.company.page.*;
 import com.company.respository.MemoryRespository;
+import com.company.respository.MovieRespository;
+import com.company.respository.PageHistoryRespository;
+import com.company.respository.ReservationRespository;
 
 import java.util.Scanner;
 
 public class AppConfig {
-    // 설정영역을 보고 app의 flow를 생각할 수 있어야 됨 == 구성요소가 한눈에 보여야됨
     Scanner sc = new Scanner(System.in);
 
-    public BeginPage beginPage()  { return new BeginPage(sc, memberPage(), adminPage()); }
+    public PageHistoryRespository pageHistoryRespository = new PageHistoryRespository();
+    public MemoryRespository memoryRespository = new MemoryRespository();
+    public MovieRespository movieRespository = new MovieRespository();
+    public ReservationRespository reservationRespository = new ReservationRespository();
+
+    public BeginPage beginPage()  { return new BeginPage(sc, memberPage(), adminPage(), pageHistoryRespository); }
 
     public MemberPage memberPage() {
-        return new MemberPage(sc, memberReservationPage(), memoryRespository());
+        return new MemberPage(sc, memberReservationPage(), memoryRespository, pageHistoryRespository);
     }
 
     public AdminPage adminPage() {
-        return new AdminPage();
-    }
-
-    public MemoryRespository memoryRespository() {
-        return new MemoryRespository();
+        return new AdminPage(sc, adminReservationPage(),memoryRespository, pageHistoryRespository);
     }
 
     public MemberReservationPage memberReservationPage() {
-        return new MemberReservationPage();
+        return new MemberReservationPage(sc, reservationRespository, movieRespository, pageHistoryRespository);
+    }
+
+    public AdminReservationPage adminReservationPage() {
+        return new AdminReservationPage(sc, reservationRespository, movieRespository, pageHistoryRespository);
     }
 }

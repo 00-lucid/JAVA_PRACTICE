@@ -2,7 +2,7 @@ package com.company.page;
 
 import com.company.member.Member;
 import com.company.respository.MemoryRespository;
-import com.company.respository.Respository;
+import com.company.respository.PageHistoryRespository;
 
 import java.util.Scanner;
 
@@ -11,12 +11,13 @@ public class MemberPage implements Page{
     private Page case1;
     private Scanner sc;
     private MemoryRespository respository;
+    private PageHistoryRespository pageHistoryRespository;
 
-    public MemberPage(Scanner sc, Page case1, MemoryRespository respository) {
-        // 사용영역과 설정영역 철저히 분리
+    public MemberPage(Scanner sc, Page case1, MemoryRespository respository, PageHistoryRespository pageHistoryRespository) {
         this.sc = sc;
         this.case1 = case1;
         this.respository = respository;
+        this.pageHistoryRespository = pageHistoryRespository;
     }
 
     @Override
@@ -26,6 +27,7 @@ public class MemberPage implements Page{
 
     @Override
     public void logic() {
+        pageHistoryRespository.add(this);
         System.out.println("[ 사용자 권한 콘솔 ]");
         System.out.println("작업을 선택해주세요");
         System.out.println("1." + case1.getOptionName() + " 2.사용자 정보 수정 3.뒤로가기 4.처음으로 5.사용자 가입");
@@ -45,7 +47,7 @@ public class MemberPage implements Page{
                     break;
                 case 3:
                 case 4:
-                    this.reset();
+                    this.back();
                     break;
                 case 5:
                     try {
@@ -60,18 +62,19 @@ public class MemberPage implements Page{
                     } catch (Exception e) {
                         System.out.println("잘못된 나이입니다");
                     }
-                    this.back();
+                    this.logic();
                     break;
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back();
+            System.out.println(e);
+            this.logic();
         }
     }
 
     @Override
     public void back() {
-        this.logic();
+        pageHistoryRespository.get().logic();
     }
 
     @Override

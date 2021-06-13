@@ -1,7 +1,6 @@
 package com.company.respository;
 
 import com.company.member.Member;
-import com.company.page.MemberPage;
 
 import java.util.ArrayList;
 

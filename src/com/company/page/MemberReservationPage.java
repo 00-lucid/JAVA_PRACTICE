@@ -1,24 +1,28 @@
 package com.company.page;
 
 import com.company.respository.MovieRespository;
+import com.company.respository.PageHistoryRespository;
 import com.company.respository.ReservationRespository;
 
 import java.util.Scanner;
 
 public class MemberReservationPage implements Page{
-    Scanner sc = new Scanner(System.in);
-    ReservationRespository reservationRespository = ReservationRespository.getInstance();
-    MovieRespository movieRespository = MovieRespository.getInstance();
 
+    private Scanner sc;
+    private MovieRespository movieRespository;
+    private ReservationRespository reservationRespository;
+    private PageHistoryRespository pageHistoryRespository;
 
-    private static final Page instance = new MemberReservationPage();
-    public static Page getInstance() {
-        return instance;
+    public MemberReservationPage(Scanner sc, ReservationRespository reservationRespository, MovieRespository movieRespository, PageHistoryRespository pageHistoryRespository) {
+        this.sc = sc;
+        this.reservationRespository = reservationRespository;
+        this.movieRespository = movieRespository;
+        this.pageHistoryRespository = pageHistoryRespository;
     }
-    public MemberReservationPage() {}
 
     @Override
     public void logic() {
+        pageHistoryRespository.add(this);
         System.out.println("[ 사용자 영화 콘솔 ]");
         System.out.println("작업을 선택해주세요");
         System.out.println("1.영화 예약 등록 2.영화 예약 취소 3.뒤로가기 4.처음으로 5.영화 예약 확인");
@@ -34,28 +38,24 @@ public class MemberReservationPage implements Page{
                     try {
                         System.out.println("관람할 영화 이름을 입력하세요");
                         movieRespository.findAllName();
-                        new CreateReservationMoviePage(sc.next(), instance).create();
+                        new CreateReservationMoviePage(sc.next(), this).create();
                     } catch (Exception e) {
                         System.out.println("존재하지 않는 영화이름 또는 좌석입니다");
                     }
-                    this.back();
+                    this.logic();
                     break;
                 case 2:
                     try {
                         // be stateless
                         System.out.println("예약자 이름을 입력하세요");
-                        new GetReservationByNamePage(sc.next(), instance).get();
+                        new GetReservationByNamePage(sc.next(), this).get();
                     } catch (Exception e) {
                         System.out.println("존재하지 않는 예약입니다");
                     }
-                    this.back();
+                    this.logic();
                     break;
                 case 3:
-//                    Page memberPage = MemberPage.getInstance();
-//                    this.back(memberPage);
-                    break;
                 case 4:
-                    Page begin = BeginPage.getInstance();
                     this.back();
                     break;
                 case 5:
@@ -63,7 +63,7 @@ public class MemberReservationPage implements Page{
                     if (reservationRespository.findByName(sc.next()).size() == 0) {
                         System.out.println("해당 사용자 이름으로 등록된 예약이 없습니다");
                     }
-                    this.back();
+                    this.logic();
                     break;
                 default:
                     this.exit();
@@ -71,18 +71,18 @@ public class MemberReservationPage implements Page{
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back();
+            this.logic();
         }
     }
 
     @Override
     public void back() {
-        this.logic();
+        pageHistoryRespository.get().logic();
     }
     @Override
     public void reset() {
-        Page beginPage = BeginPage.getInstance();
-        beginPage.logic();
+//        Page beginPage = BeginPage.getInstance();
+//        beginPage.logic();
     }
 
     @Override

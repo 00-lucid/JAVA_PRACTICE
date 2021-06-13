@@ -1,7 +1,7 @@
 package com.company.page;
 
 public interface Page {
-    // 페이지는 각각 다른 I/O를 가짐
+
 
     // 페이지의 로직 함수
     void logic();

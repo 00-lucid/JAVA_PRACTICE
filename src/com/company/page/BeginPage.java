@@ -1,5 +1,7 @@
 package com.company.page;
 
+import com.company.respository.PageHistoryRespository;
+
 import java.util.Scanner;
 
 public class BeginPage implements Page{
@@ -7,20 +9,18 @@ public class BeginPage implements Page{
     private Page case1;
     private Page case2;
     private Scanner sc;
+    private PageHistoryRespository pageHistoryRespository;
 
-    public BeginPage(Scanner sc, Page case1, Page case2) {
+    public BeginPage(Scanner sc, Page case1, Page case2, PageHistoryRespository pageHistoryRespository) {
         // 사용영역과 설정영역 철저히 분리
         this.sc = sc;
         this.case1 = case1;
         this.case2 = case2;
-    }
-
-    // 임시 코드, 지울 예정
-    public Page getInstance() {
-        return this;
+        this.pageHistoryRespository = pageHistoryRespository;
     }
 
     public void logic() {
+        pageHistoryRespository.add(this);
         System.out.println("[ 무비 스테이츠에 오신걸 환영합니다! ]");
         System.out.println("권한을 선택하세요");
         System.out.println("1."+ case1.getOptionName() + " 2." + case2.getOptionName());
@@ -42,15 +42,16 @@ public class BeginPage implements Page{
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back();
+            this.logic();
         }
 
     }
 
     @Override
     public void back() {
-        this.logic();
+        pageHistoryRespository.get().logic();
     }
+
     @Override
     public void reset() {
 
@@ -63,6 +64,6 @@ public class BeginPage implements Page{
 
     @Override
     public String getOptionName() {
-        return null;
+        return "무비 스테이츠에 오신걸 환영합니다!";
     }
 }

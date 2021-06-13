@@ -1,23 +1,28 @@
 package com.company.page;
 
-import com.company.respository.MemoryRespository;
+import com.company.respository.MovieRespository;
+import com.company.respository.PageHistoryRespository;
 import com.company.respository.ReservationRespository;
 
 import java.util.Scanner;
 
 public class AdminReservationPage implements Page{
-    Scanner sc = new Scanner(System.in);
-    MemoryRespository memoryRespository = MemoryRespository.getInstance();
-    ReservationRespository reservationRespository = ReservationRespository.getInstance();
 
-    private static final Page instance = new AdminReservationPage();
-    public static Page getInstance() {
-        return instance;
+    private Scanner sc;
+    private MovieRespository movieRespository;
+    private ReservationRespository reservationRespository;
+    private PageHistoryRespository pageHistoryRespository;
+
+    public AdminReservationPage(Scanner sc, ReservationRespository reservationRespository, MovieRespository movieRespository, PageHistoryRespository pageHistoryRespository) {
+        this.sc = sc;
+        this.reservationRespository = reservationRespository;
+        this.movieRespository = movieRespository;
+        this.pageHistoryRespository = pageHistoryRespository;
     }
-    public AdminReservationPage() {}
 
     @Override
     public void logic() {
+        pageHistoryRespository.add(this);
         System.out.println("[ 관리자 예약 콘솔 ]");
         System.out.println("작업을 선택하세요");
         System.out.println("1.영화 예약 전체 조회 2.뒤로가기 3.처음으로");
@@ -31,7 +36,7 @@ public class AdminReservationPage implements Page{
             switch (Integer.parseInt(sc.next())) {
                 case 1:
                     reservationRespository.findAll();
-                    this.back();
+                    this.logic();
                     break;
                 case 2:
                     this.back();
@@ -44,18 +49,18 @@ public class AdminReservationPage implements Page{
             }
         } catch (Exception e) {
             System.out.println("잘못된 선택지입니다");
-            this.back();
+            this.logic();
         }
     }
 
     @Override
     public void back() {
-        this.logic();
+        pageHistoryRespository.get().logic();
     }
     @Override
     public void reset() {
-        Page beginPage = BeginPage.getInstance();
-        beginPage.logic();
+//        Page beginPage = BeginPage.getInstance();
+//        beginPage.logic();
     }
 
     @Override
@@ -65,6 +70,6 @@ public class AdminReservationPage implements Page{
 
     @Override
     public String getOptionName() {
-        return null;
+        return "영화 예약 관리";
     }
 }
