@@ -48,7 +48,7 @@ public class MemoryMapRespository implements Respository{
         try {
             for (Map.Entry entry : store.entrySet()) {
                 Member member = store.get(entry.getKey());
-                if (member.getName() == name) {
+                if (member.getName().equals(name)) {
                     return member;
                 }
             }
