@@ -3,6 +3,7 @@ package com.company.page;
 import com.company.member.Member;
 import com.company.respository.MemoryRespository;
 import com.company.respository.PageHistoryRespository;
+import com.company.respository.Respository;
 
 import java.util.Scanner;
 
@@ -10,10 +11,10 @@ public class MemberPage implements Page{
 
     private Page case1;
     private Scanner sc;
-    private MemoryRespository respository;
+    private Respository respository;
     private PageHistoryRespository pageHistoryRespository;
 
-    public MemberPage(Scanner sc, Page case1, MemoryRespository respository, PageHistoryRespository pageHistoryRespository) {
+    public MemberPage(Scanner sc, Page case1, Respository respository, PageHistoryRespository pageHistoryRespository) {
         this.sc = sc;
         this.case1 = case1;
         this.respository = respository;

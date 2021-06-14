@@ -4,7 +4,7 @@ import com.company.movie.Movie;
 
 import java.util.ArrayList;
 
-public class MovieRespository implements Respository{
+public class MovieRespository {
 
     private static final MovieRespository instance = new MovieRespository();
     public static MovieRespository getInstance() {
@@ -23,7 +23,6 @@ public class MovieRespository implements Respository{
         }
     }
 
-    @Override
     public String findAll() {
         try {
             for (Movie movie : store) {

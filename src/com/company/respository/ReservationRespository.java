@@ -6,7 +6,7 @@ import com.company.reservation.Reservation;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ReservationRespository implements Respository{
+public class ReservationRespository {
     MovieRespository movieRespository = MovieRespository.getInstance();
 
     private static final ReservationRespository instance = new ReservationRespository();
@@ -26,7 +26,6 @@ public class ReservationRespository implements Respository{
         }
     }
 
-    @Override
     public String findAll() {
         try {
             if (store.size() == 0) {

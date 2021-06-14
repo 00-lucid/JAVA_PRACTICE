@@ -12,6 +12,13 @@ public class Member {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "이름: " + name +
+                ", 나이: " + age +
+                ", 이메일 " + email;
+    }
+
     public String getName() {
         return name;
     }

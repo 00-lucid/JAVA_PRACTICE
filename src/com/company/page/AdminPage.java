@@ -2,6 +2,7 @@ package com.company.page;
 
 import com.company.respository.MemoryRespository;
 import com.company.respository.PageHistoryRespository;
+import com.company.respository.Respository;
 
 import java.util.Scanner;
 
@@ -9,11 +10,11 @@ public class AdminPage implements Page{
 
     private Page case1;
     private Scanner sc;
-    private MemoryRespository respository;
+    private Respository respository;
     private PageHistoryRespository pageHistoryRespository;
 
 
-    public AdminPage(Scanner sc, Page case1, MemoryRespository memoryRespository, PageHistoryRespository pageHistoryRespository) {
+    public AdminPage(Scanner sc, Page case1, Respository memoryRespository, PageHistoryRespository pageHistoryRespository) {
         this.sc = sc;
         this.case1 = case1;
         this.respository = memoryRespository;

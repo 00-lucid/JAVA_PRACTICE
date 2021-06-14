@@ -2,16 +2,15 @@ package com.company.respository;
 
 import com.company.member.Member;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
-public class MemoryRespository implements Respository{
-    private static final MemoryRespository instance = new MemoryRespository();
-    public static MemoryRespository getInstance() {
-        return instance;
-    }
-    public MemoryRespository() {}
+public class MemoryMapRespository implements Respository{
 
-    public static ArrayList<Member> store = new ArrayList();
+    public MemoryMapRespository() {}
+
+    public static HashMap<UUID, Member> store = new HashMap<>();
 
     @Override
     public String save(Member member) {
@@ -20,7 +19,7 @@ public class MemoryRespository implements Respository{
                 System.out.println("중복된 이름입니다");
                 return "fail";
             } else {
-                store.add(member);
+                store.put(UUID.randomUUID(), member);
                 return "success";
             }
         } catch (Exception e) {
@@ -32,8 +31,10 @@ public class MemoryRespository implements Respository{
     public String findAll() {
         System.out.println();
         try {
-            for(Member member : store) {
-                System.out.print("이름: " + member.getName() + " 나이: " + member.getAge() + " 이메일 " + member.getEmail() + "\n");
+            for(Map.Entry entry : store.entrySet()) {
+                System.out.println("식별번호 " + entry.getKey());
+                System.out.println(entry.getValue());
+                System.out.println();
             }
             System.out.println();
             return "success";
@@ -45,8 +46,9 @@ public class MemoryRespository implements Respository{
     @Override
     public Member findByName(String name) {
         try {
-            for (Member member : store) {
-                if (member.getName().equals(name)) {
+            for (Map.Entry entry : store.entrySet()) {
+                Member member = store.get(entry.getKey());
+                if (member.getName() == name) {
                     return member;
                 }
             }
@@ -58,6 +60,7 @@ public class MemoryRespository implements Respository{
 
     @Override
     public String remove(int idx) {
+        // Map repo의 경우 Idx 자리에 key 값이 들어와야 함
         try {
             store.remove(idx);
             return "success";
